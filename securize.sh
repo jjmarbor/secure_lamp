@@ -66,7 +66,7 @@ if [[ $respuestaRoot == "s" || $respuestaRoot == "S" ]]
   	 	use mysql;
   	 	update mysql.user set user="$nuevoRoot" where user="root";
 	 	flush privileges;
-  	 	exit;
+  	 	exit
 	EOF
 	 
 	echo "Cambio realizado con éxito."
@@ -102,86 +102,6 @@ mysql -u root -p $contrasenaRoot <<EOF
 use mysql;
 SHOW GRANTS FOR 'root'@'localhost';
 EOF
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
