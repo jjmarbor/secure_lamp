@@ -1,5 +1,6 @@
 #! /bin/bash
 
+echo ""
 echo " __                      _             _      ___  _      ___         __  "
 echo "/ _\ ___  ___ _   _ _ __(_)_______    /_\    / _ \/_\    / __\ /\  /\/__\ "
 echo "\ \ / _ \/ __| | | | '__| |_  / _ \  //_ \  / /_)//_ \  / /   / /_/ /_\   "
@@ -10,6 +11,8 @@ echo ""
 #Variables
 ficheroVarEnt="/etc/apache2/envvars"
 rutaFicheroConfigApache="/etc/apache2/apache2.conf"
+ficheroVarEnt="sandbox/envvars"
+rutaFicheroConfigApache="sandbox/apache2.conf"
 
 #1. Usuarios y grupos de ejecución.
 
@@ -17,27 +20,27 @@ echo "Vamos a comprobar si el usuario y el grupo del fichero de configuración d
 lineaUser=$(grep ^User.* $rutaFicheroConfigApache)
 lineaUser=${lineaUser#*\{}
 lineaUser=${lineaUser%\}*}
-echo $lineaUser
 
 lineaGrupo=$(grep ^Group.* $rutaFicheroConfigApache)
 lineaGrupo=${lineaGrupo#*\{}
 lineaGrupo=${lineaGrupo%\}*}
-echo $lineaGrupo
 
-if [[ $(grep ^$lineaUser=www-data $ficheroVarEnt) ]]
+grep ^$lineaUser=www-data $ficheroVarEnt >> /dev/null
+if [[ $? -eq 0 ]]
 then 
 	echo "El valor de la variable de entorno $lineaUser está establecida a www-data."
 else
-	sed -i 's/^User.*/User www-data/' $ficheroVarEnt
-	echo "El valor de la variable de entorno $lineaUser se ha establecido a www-data."
+	#sed -i 's/^User.*/User www-data/' $ficheroVarEnt
+	echo "El valor de la variable de entorno $lineaUser debe ser establecido a www-data."
 fi
 
-if [[ $(grep ^$lineaGrupo=www-data $ficheroVarEnt) ]]
+grep ^$lineaGrupo=www-data $ficheroVarEnt >> /dev/null
+if [[ $? -eq 0 ]]
 then 
 	echo "El valor de la variable de entorno $lineaGrupo está establecida a www-data."
 else
-	sed -i 's/^Group.*/Group www-data/' $ficheroVarEnt
-	echo "El valor de la variable de entorno $lineaGrupo se ha establecido a www-data."
+	#sed -i 's/^Group.*/Group www-data/' $ficheroVarEnt
+	echo "El valor de la variable de entorno $lineaGrupo debe ser establecido a www-data."
 fi
 
 
